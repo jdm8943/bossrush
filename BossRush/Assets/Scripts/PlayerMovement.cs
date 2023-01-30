@@ -7,6 +7,10 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
     float speed = 1f;
+
+    [SerializeField]
+    GameObject bulletPrefab;
+
     bool isDodging = false;
     float dodgeTimer = 0f;
     Vector2 lastPlayerInput = new Vector2();
@@ -42,9 +46,19 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //TODO: Prevent player from spamming dodge
     public void OnDodge(InputAction.CallbackContext context)
     {
         StartDodge();
+    }
+
+    public void OnFire(InputAction.CallbackContext context)
+    {
+        // Get a reference to the game object which holds the bullets and create a bullet
+        // Need to set the Bullet pos to player pos
+
+        // Check to ensure it is working
+        GetComponent<SpriteRenderer>().color = Color.blue;
     }
 
     void RegularMovement()
