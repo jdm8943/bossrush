@@ -11,6 +11,7 @@ public class BossActions : MonoBehaviour
     public GameObject AoeAttack;
     public int movespeed = 4;
     public float attackDamage = 10f;
+    public bool Moving = false;
 
     public float attackCooldown = 10f;
     public GameObject deathEffect;
@@ -28,19 +29,36 @@ public class BossActions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (Time.time > lastAttackTime + attackCooldown)
         {
+            
             randnum = rand.Next(1, 3);
             switch(randnum)
             {
                 case 1:
                     {
-                        moveto();
+                        if(Moving==false)
+                        {
+                            moveto();
+                        }
+                        else
+                        {
+                            Moving = true;
+                        } 
                         return;
                     }
                case 2:
                     {
-                        WaveAttack();
+                        if (AoeAttack.activeInHierarchy == false)
+                        {
+                            WaveAttack();
+                        }
+                        else
+                        {
+                            AoeAttack.SetActive(false);
+                        }
+                        
                         return;
                     }
             }
@@ -52,6 +70,7 @@ public class BossActions : MonoBehaviour
     public void moveto()
     {
  
+
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, movespeed * Time.deltaTime);
         
 
@@ -61,5 +80,10 @@ public class BossActions : MonoBehaviour
     {
         AoeAttack.SetActive(true);
         
+    }
+
+    public void SummonMinions()
+    {
+
     }
 }
