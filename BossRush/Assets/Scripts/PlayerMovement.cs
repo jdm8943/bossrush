@@ -9,6 +9,9 @@ public class PlayerMovement : MonoBehaviour
     float speed = 1f;
 
     [SerializeField]
+    GameObject manager;
+
+    [SerializeField]
     GameObject bulletPrefab;
 
     bool isDodging = false;
@@ -56,9 +59,14 @@ public class PlayerMovement : MonoBehaviour
     {
         // Get a reference to the game object which holds the bullets and create a bullet
         // Need to set the Bullet pos to player pos
+        if (context.performed)
+        {
+            manager.GetComponent<BulletPool>().ShootBullet();
+        }
+
 
         // Check to ensure it is working
-        GetComponent<SpriteRenderer>().color = Color.blue;
+
     }
 
     void RegularMovement()
